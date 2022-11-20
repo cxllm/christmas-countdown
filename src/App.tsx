@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import moment from "moment";
+import moment, { locale } from "moment";
 moment.locale("fr", {
 	//French date formats
 	months:
@@ -113,30 +113,33 @@ class App extends React.Component<
 			date: "",
 			isToday: false,
 			//@ts-ignore
-			translation: localStorage.getItem("lang") || "fr"
+			translation:
+				localStorage.getItem("lang") || document.location.hostname.includes("noel")
+					? "fr"
+					: "en"
 		};
 	}
 	setLang = () => {
-		let current = localStorage.getItem("lang") || "fr";
+		let current = this.state.translation;
 		if (current === "en") {
 			localStorage.setItem("lang", "fr");
 			this.setState({ translation: "fr" });
-			this.update();
+			this.update("fr");
 		} else {
 			localStorage.setItem("lang", "en");
 			this.setState({ translation: "en" });
-			this.update();
+			this.update("en");
 		}
 	};
-	getChristmas() {
-		moment.locale(localStorage.getItem("lang") || "en");
+	getChristmas(locale: string) {
+		moment.locale(locale);
 		let date = new Date();
 		let christmas = moment(new Date().getFullYear() + "-12-25");
 		if (date.getMonth() === 11 && date.getDate() >= 25) {
 			christmas = moment(new Date().getFullYear() + 1 + "-12-25");
 		}
 		return {
-			date: moment().format("dddd LL"),
+			date: moment().format("dddd, LL"),
 			unix: christmas.unix() * 1000
 		};
 	}
@@ -146,7 +149,6 @@ class App extends React.Component<
 		const min = Math.floor((diff / (1000 * 60)) % 60);
 		const hrs = Math.floor((diff / (1000 * 60 * 60)) % 24);
 		const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-		console.log(days, hrs, min, sec);
 		return {
 			days,
 			hrs,
@@ -154,16 +156,16 @@ class App extends React.Component<
 			sec
 		};
 	}
-	update() {
+	update(locale: string) {
 		let today = new Date();
 		if (today.getMonth() === 11 && today.getDate() === 25) {
 			this.setState({ isToday: true });
 		}
-		let { unix, date } = this.getChristmas();
+		let { unix, date } = this.getChristmas(locale);
 		this.setState({ ...this.getDaysUntil(unix), christmas: unix, date });
 	}
 	componentDidMount(): void {
-		this.update();
+		this.update(this.state.translation);
 		this.interval = setInterval(() => {
 			this.setState({ ...this.getDaysUntil(this.state.christmas) });
 		}, 1000);
@@ -173,7 +175,7 @@ class App extends React.Component<
 	}
 	render() {
 		let translation = translations[this.state.translation];
-		console.log(this.getDaysUntil(this.getChristmas().unix));
+		console.log(this.getDaysUntil(this.getChristmas("en").unix));
 		return (
 			<div className="App">
 				<title>{translation.title}</title>
@@ -187,30 +189,32 @@ class App extends React.Component<
 				<div className="snowflake">❅</div>
 				<div className="snowflake">❆</div>
 				<div className="snowflake">❄</div>
-				<h1>{translation.title}</h1>
-				<h2>
-					{translation.tagline}
-					{this.state.date}
-				</h2>
-				<h2>
-					{this.state.isToday ? (
-						<>{translation.merryxmas}</>
-					) : (
-						<>
-							{translation.christmas}...
-							<br /> {this.state.days} {translation.days}, {this.state.hrs}{" "}
-							{translation.hours}, {this.state.min} {translation.minutes},{" "}
-							{this.state.sec} {translation.seconds}
-						</>
-					)}
-				</h2>
-				<button onClick={this.setLang}>
-					{
-						this.state.translation === "fr"
-							? "English" //<span className="fi fi-gb"></span>
-							: "Français" //<span className="fi fi-fr"></span>
-					}
-				</button>
+				<div className="content">
+					<h1>{translation.title}</h1>
+					<h2>
+						{translation.tagline}
+						{this.state.date}
+					</h2>
+					<h2>
+						{this.state.isToday ? (
+							<>{translation.merryxmas}</>
+						) : (
+							<>
+								{translation.christmas}...
+								<br /> {this.state.days} {translation.days}, {this.state.hrs}{" "}
+								{translation.hours}, {this.state.min} {translation.minutes},{" "}
+								{this.state.sec} {translation.seconds}
+							</>
+						)}
+					</h2>
+					<button onClick={this.setLang}>
+						{
+							this.state.translation === "fr"
+								? "English" //<span className="fi fi-gb"></span>
+								: "Français" //<span className="fi fi-fr"></span>
+						}
+					</button>
+				</div>
 			</div>
 		);
 	}

@@ -5,13 +5,17 @@
 	background-color: #111111;
 	min-height: 100vh;
 	display: flex;
+	padding-left: 10px;
 	flex-direction: column;
 	justify-content: center;
-	padding-left: 65px;
 	font-size: calc(10px + 2vmin);
 	color: white;
 	text-align: left;
 }
+.content {
+	padding-left: 55px;
+}
+
 h1,
 h2 {
 	margin-bottom: 0;
@@ -165,8 +169,9 @@ button {
 	color: #000;
 }
 @media screen and (max-width: 1000px) {
-		.App {
-			padding-right:10px;
-			padding-left:10px;
-		}
+	.content,
+	.App {
+		padding-right: 5px;
+		padding-left: 5px;
 	}
+}
