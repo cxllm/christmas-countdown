@@ -164,3 +164,9 @@ button {
 	font-family: "Raleway", sans-serif;
 	color: #000;
 }
+@media screen and (max-width: 1000px) {
+		.App {
+			padding-right:10px;
+			padding-left:10px;
+		}
+	}
