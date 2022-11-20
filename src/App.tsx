@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import moment, { locale } from "moment";
+import moment from "moment";
 moment.locale("fr", {
 	//French date formats
 	months:
@@ -160,7 +160,6 @@ class App extends React.Component<
 	}
 	render() {
 		let translation = translations[this.state.translation];
-		console.log(this.getDaysUntil(this.getChristmas("en").unix));
 		return (
 			<div className="App">
 				<title>{translation.title}</title>
