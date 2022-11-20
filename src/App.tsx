@@ -113,24 +113,9 @@ class App extends React.Component<
 			date: "",
 			isToday: false,
 			//@ts-ignore
-			translation:
-				localStorage.getItem("lang") || document.location.hostname.includes("noel")
-					? "fr"
-					: "en"
+			translation: document.location.href.includes("noel") ? "fr" : "en"
 		};
 	}
-	setLang = () => {
-		let current = this.state.translation;
-		if (current === "en") {
-			localStorage.setItem("lang", "fr");
-			this.setState({ translation: "fr" });
-			this.update("fr");
-		} else {
-			localStorage.setItem("lang", "en");
-			this.setState({ translation: "en" });
-			this.update("en");
-		}
-	};
 	getChristmas(locale: string) {
 		moment.locale(locale);
 		let date = new Date();
@@ -207,13 +192,20 @@ class App extends React.Component<
 							</>
 						)}
 					</h2>
-					<button onClick={this.setLang}>
+					<br />
+					<a
+						href={
+							this.state.translation === "fr"
+								? "https://christmas.cxllm.uk"
+								: "https://noel.cxllm.uk"
+						}
+					>
 						{
 							this.state.translation === "fr"
 								? "English" //<span className="fi fi-gb"></span>
 								: "Français" //<span className="fi fi-fr"></span>
 						}
-					</button>
+					</a>
 				</div>
 			</div>
 		);

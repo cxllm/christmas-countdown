@@ -22,7 +22,6 @@ h2 {
 }
 a,
 button {
-	padding-top: 20px;
 	cursor: pointer;
 	color: #00aaff;
 	border: none;
@@ -31,12 +30,8 @@ button {
 	padding-left: 0;
 	text-decoration: none;
 	font-family: "Rubik";
-	font-size: 30px;
 }
 
-.App-link {
-	color: #61dafb;
-}
 .snowflake {
 	color: #fff;
 	font-size: 1em;
@@ -155,19 +150,7 @@ button {
 	-webkit-animation-delay: 3s, 1.5s;
 	animation-delay: 3s, 1.5s;
 }
-/* Demo Purpose Only*/
-.demo {
-	font-family: "Raleway", sans-serif;
-	color: #fff;
-	display: block;
-	margin: 0 auto;
-	padding: 15px 0;
-	text-align: center;
-}
-.demo a {
-	font-family: "Raleway", sans-serif;
-	color: #000;
-}
+
 @media screen and (max-width: 1000px) {
 	.content,
 	.App {
