@@ -71,30 +71,30 @@ const translations = {
 		title: "Combien de temps jusqu'à Noël?",
 		tagline: "Aujourd'hui, c'est ",
 		christmas: "Noël est dans",
-		days: "jours",
-		hours: "heures",
-		minutes: "minutes",
-		seconds: "secondes",
+		days: "jour",
+		hours: "heure",
+		minutes: "minute",
+		seconds: "seconde",
 		merryxmas: "C'est aujourd'hui! Joyeux Noël!"
 	},
 	en: {
 		title: "How long until Christmas?",
 		tagline: "Today it is ",
 		christmas: "Christmas is in",
-		days: "days",
-		hours: "hours",
-		minutes: "minutes",
-		seconds: "seconds",
+		days: "day",
+		hours: "hour",
+		minutes: "minute",
+		seconds: "second",
 		merryxmas: "It's today! Merry Christmas!"
 	}
 };
 class App extends React.Component<
 	{},
 	{
-		days: number;
-		hrs: number;
-		min: number;
-		sec: number;
+		days: string;
+		hrs: string;
+		min: string;
+		sec: string;
 		christmas: number;
 		date: string;
 		isToday: boolean;
@@ -105,10 +105,10 @@ class App extends React.Component<
 	constructor(props: any) {
 		super(props);
 		this.state = {
-			days: 0,
-			hrs: 0,
-			min: 0,
-			sec: 0,
+			days: "0",
+			hrs: "0",
+			min: "0",
+			sec: "0",
 			christmas: 0,
 			date: "",
 			isToday: false,
@@ -135,10 +135,10 @@ class App extends React.Component<
 		const hrs = Math.floor((diff / (1000 * 60 * 60)) % 24);
 		const days = Math.floor(diff / (1000 * 60 * 60 * 24));
 		return {
-			days,
-			hrs,
-			min,
-			sec
+			days: days.toString(),
+			hrs: hrs.toString(),
+			min: min.toString(),
+			sec: sec.toString()
 		};
 	}
 	update(locale: string) {
@@ -185,9 +185,14 @@ class App extends React.Component<
 						) : (
 							<>
 								{translation.christmas}...
-								<br /> {this.state.days} {translation.days}, {this.state.hrs}{" "}
-								{translation.hours}, {this.state.min} {translation.minutes},{" "}
-								{this.state.sec} {translation.seconds}
+								<br /> {this.state.days}{" "}
+								{translation.days + (this.state.days != "1" ? "s" : "")},{" "}
+								{this.state.hrs}{" "}
+								{translation.hours + (this.state.hrs != "1" ? "s" : "")},{" "}
+								{this.state.min}{" "}
+								{translation.minutes + (this.state.min != "1" ? "s" : "")},{" "}
+								{this.state.sec}{" "}
+								{translation.seconds + (this.state.sec != "1" ? "s" : "")}
 							</>
 						)}
 					</h2>
