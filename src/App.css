@@ -1,8 +1,8 @@
-@import url("https://fonts.googleapis.com/css2?family=Rubik&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Funnel+Display&display=swap");
 .App {
-	font-family: "Rubik";
+	font-family: "Funnel Display", sans-serif;
 	text-align: center;
-	background-color: #111111;
+	background-color: #1a1a1a;
 	min-height: 100vh;
 	display: flex;
 	padding-left: 10px;

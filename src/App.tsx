@@ -186,17 +186,18 @@ class App extends React.Component<
 							<>
 								{translation.christmas}...
 								<br /> {this.state.days}{" "}
-								{translation.days + (this.state.days != "1" ? "s" : "")},{" "}
+								{translation.days + (this.state.days !== "1" ? "s" : "")},{" "}
 								{this.state.hrs}{" "}
-								{translation.hours + (this.state.hrs != "1" ? "s" : "")},{" "}
+								{translation.hours + (this.state.hrs !== "1" ? "s" : "")},{" "}
 								{this.state.min}{" "}
-								{translation.minutes + (this.state.min != "1" ? "s" : "")},{" "}
+								{translation.minutes + (this.state.min !== "1" ? "s" : "")},{" "}
 								{this.state.sec}{" "}
-								{translation.seconds + (this.state.sec != "1" ? "s" : "")}
+								{translation.seconds + (this.state.sec !== "1" ? "s" : "")}
 							</>
 						)}
 					</h2>
 					<br />
+					{/* removed the french/english button as its redundant
 					<a
 						href={
 							this.state.translation === "fr"
@@ -209,7 +210,7 @@ class App extends React.Component<
 								? "English" //<span className="fi fi-gb"></span>
 								: "Français" //<span className="fi fi-fr"></span>
 						}
-					</a>
+					</a>*/}
 				</div>
 			</div>
 		);
